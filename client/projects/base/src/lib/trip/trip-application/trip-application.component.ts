@@ -216,7 +216,6 @@ export class SfTripApplicationComponent {
         responseMap[answer.SurveyQuestionId] = answer;
       }
     }
-    console.log(responseMap);
     this.responses.set(responseMap);
   }
 }

@@ -66,8 +66,16 @@
       (cdkDropListDropped)="onDrop($event)"
     >
       @for (question of questionsArray.controls; track $index) {
-        <div class="question-row" cdkDrag [cdkDragData]="question">
-          <div class="drag-handle" cdkDragHandle>⠿</div>
+        <div
+          class="question-row"
+          cdkDrag
+          [cdkDragData]="question"
+          [cdkDragDisabled]="!!question.value.Id"
+          [class.not-draggable]="!!question.value.Id"
+        >
+          @if (!question.value.Id) {
+            <div class="drag-handle" cdkDragHandle>⠿</div>
+          }
 
           <div class="question-content">
             @if (editingIndex() === $index) {

@@ -1,30 +1,20 @@
-<nz-card [nzTitle]="surveyTitleTemplate" [nzBordered]="false" [nzExtra]="surveyExtraTemplate">
-  <sf-survey-form
-    [sfTrips]="trips()"
-    [sfSurvey]="survey()"
-  ></sf-survey-form>
-</nz-card>
-<sf-button
-  [sfButtonText]="survey()?.Id ? 'Zapisz ankietę' : 'Dodaj ankietę'"
-  (click)="survey()?.Id ? onSaveSurvey() : onCreateSurvey()"
-></sf-button>
+<div class="survey-container">
+  <nz-card [nzTitle]="surveyTitleTemplate" [nzBordered]="false">
+    <sf-survey-form
+      [sfTrips]="trips()"
+      [sfSurvey]="survey()"
+    ></sf-survey-form>
+  </nz-card>
+  <sf-button
+    [sfButtonText]="survey()?.Id ? 'Zapisz ankietę' : 'Dodaj ankietę'"
+    [sfDisabled]="!survey()?.TripIds?.length"
+    (click)="survey()?.Id ? onSaveSurvey() : onCreateSurvey()"
+  ></sf-button>
 
-<ng-template #surveyTitleTemplate>
-  <sf-icon-and-text
-    [sfText]="survey()?.Id ? 'Edytor ankiety' : 'Kreator ankiet'"
-    [sfIcon]="icons.surveyAdd"
-  ></sf-icon-and-text>
-</ng-template>
-
-<ng-template #surveyExtraTemplate>
-  <div class="survey-preview"
-       nz-tooltip
-       [nzTooltipTitle]="'Kliknij, aby zobaczyć podgląd ankiety'"
-       [nzTooltipPlacement]="'left'">
-    <fa-icon [icon]="icons.preview" (click)="surveyModal.openSurveyModal()"></fa-icon>
-  </div>
-</ng-template>
-
-<sf-survey-modal
-  #surveyModal
-></sf-survey-modal>
+  <ng-template #surveyTitleTemplate>
+    <sf-icon-and-text
+      [sfText]="survey()?.Id ? 'Edytor ankiety' : 'Kreator ankiet'"
+      [sfIcon]="icons.surveyAdd"
+    ></sf-icon-and-text>
+  </ng-template>
+</div>

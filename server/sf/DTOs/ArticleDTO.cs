@@ -8,10 +8,13 @@ public class  ArticleDTO
 {
     public int? Id { get; set; }
     [Required]
+    [MaxLength(250)]
     public string Title { get; set;}
     [Required]
+    [MaxLength(300)]
     public string Url { get; set; }
     [Required]
+    [MaxLength(500)]
     public string BackgroundImageUrl { get; set; }
     [Required]
     public string Content { get; set; }

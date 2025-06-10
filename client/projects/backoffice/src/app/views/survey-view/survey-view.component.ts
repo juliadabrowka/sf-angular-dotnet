@@ -10,26 +10,20 @@ import {
   SfIconAndTextComponent,
   SfIcons,
   SfSurveyFormComponent,
-  SfSurveyModalComponent,
   SurveyStore,
 } from '@sf/sf-base';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NzCardComponent } from 'ng-zorro-antd/card';
-import { FaIconComponent } from '@fortawesome/angular-fontawesome';
-import { NzTooltipDirective } from 'ng-zorro-antd/tooltip';
 
 @Component({
-  selector: 'sf-backoffice-trip-application-view',
+  selector: 'sf-backoffice-survey-view',
   imports: [
     SfButtonComponent,
     SfSurveyFormComponent,
     NzCardComponent,
     SfIconAndTextComponent,
-    FaIconComponent,
-    NzTooltipDirective,
-    SfSurveyModalComponent,
   ],
   templateUrl: './survey-view.component.html',
   styleUrl: './survey-view.component.css',

@@ -2,13 +2,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  effect,
   inject,
-  input,
-  signal,
 } from '@angular/core';
 import { PageTitleFramedComponent } from '../page-title-framed/page-title-framed.component';
-import { SurveyDTO, SurveyQuestionDTO, SurveyStore } from '@sf/sf-base';
+import { SurveyStore } from '@sf/sf-base';
 import { NzEmptyComponent } from 'ng-zorro-antd/empty';
 
 @Component({
@@ -19,35 +16,16 @@ import { NzEmptyComponent } from 'ng-zorro-antd/empty';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SfSurveyComponent {
-  private readonly surveyStore = inject(SurveyStore);
+  private readonly __surveyStore = inject(SurveyStore);
 
-  public readonly sfSurvey = input<SurveyDTO | null | undefined>(undefined);
-  public responses = signal<
-    {
-      question: SurveyQuestionDTO | undefined;
-      answer: string;
-    }[]
-  >([]);
-
+  public readonly surveyComputed = computed(() => this.__surveyStore.survey());
   public readonly title = computed(
-    () => this.sfSurvey()?.TripDTOS[0]?.ArticleDTO?.Title,
+    () => this.surveyComputed()?.TripDTOS[0]?.ArticleDTO?.Title,
   );
   public readonly articleImgSrc = computed(
-    () => this.sfSurvey()?.TripDTOS[0]?.ArticleDTO?.BackgroundImageUrl,
+    () => this.surveyComputed()?.TripDTOS[0]?.ArticleDTO?.BackgroundImageUrl,
   );
-  public readonly extraLogoSrc = computed(() => this.sfSurvey()?.ExtraLogoUrl);
-
-  constructor() {
-    effect(() => {
-      // const responseArray =
-      //   tripApplication?.SurveyResponseDTO?.SurveyAnswerDTOS?.map(
-      //     (surveyAnswer) => ({
-      //       question: surveyAnswer.SurveyQuestionDTO,
-      //       answer: surveyAnswer.Answer,
-      //     }),
-      //   ) ?? [];
-      //
-      // this.responses.set(responseArray);
-    });
-  }
+  public readonly extraLogoSrc = computed(
+    () => this.surveyComputed()?.ExtraLogoUrl,
+  );
 }

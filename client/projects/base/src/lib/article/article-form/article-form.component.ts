@@ -132,7 +132,7 @@ export class SfArticleFormComponent {
 
   public readonly articleId = computed(() => this.sfArticle()?.Id);
   public readonly sfButtonDisabled = output<boolean>();
-  public readonly article = computed(() => this.sfArticle());
+  private readonly __article = computed(() => this.sfArticle());
 
   public readonly quillConfig: QuillModules = {
     toolbar: [
@@ -206,7 +206,7 @@ export class SfArticleFormComponent {
       )
       .subscribe((fg) => {
         this.isTripCategorySelected.set(fg.category === ArticleCategory.Trips);
-        const article = this.article();
+        const article = this.__article();
         const articleState = article ? article : new ArticleDTO();
 
         articleState.Title = fg.title;

@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   effect,
   inject,
   input,
@@ -69,9 +70,7 @@ export class SfSurveyFormComponent {
   private readonly __surveyStore = inject(SurveyStore);
 
   public readonly sfTrips = input<TripDTO[] | null | undefined>();
-  public readonly sfSurvey = input(undefined, {
-    transform: (survey: SurveyDTO | null | undefined) => survey ?? undefined,
-  });
+  public readonly sfSurvey = input<SurveyDTO | null | undefined>();
   public readonly icons = SfIcons;
   public readonly questionsArray = new FormArray<
     FormControl<SurveyQuestionDTO>
@@ -101,6 +100,7 @@ export class SfSurveyFormComponent {
   });
   public readonly editingIndex = signal<number | undefined>(undefined);
   public readonly tripOptions = signal<{ label: string; value: string }[]>([]);
+  private readonly __survey = computed(() => this.sfSurvey());
 
   constructor() {
     effect(() => {
@@ -120,8 +120,8 @@ export class SfSurveyFormComponent {
             );
           }
         } else {
-          this.__createQuestion('Ile masz lat?'),
-            this.__createQuestion('Gdzie mieszkasz?');
+          this.__createQuestion('Ile masz lat?');
+          this.__createQuestion('Gdzie mieszkasz?');
         }
 
         return this.questionsArray.controls.map((q) => q.value);
@@ -152,7 +152,7 @@ export class SfSurveyFormComponent {
         takeUntilDestroyed(),
       )
       .subscribe((fg) => {
-        const survey = this.sfSurvey();
+        const survey = this.__survey();
         const surveyState = isNil(survey) ? new SurveyDTO() : survey;
         const tripIds = fg.tripIds.map((id) => parseInt(id));
 
@@ -164,7 +164,7 @@ export class SfSurveyFormComponent {
           .map((q) => q.Id)
           .filter((id): id is number => id !== undefined);
 
-        if (surveyChanged(survey, surveyState)) {
+        if (this.__surveyChanged(this.__surveyStore.survey(), surveyState)) {
           this.__surveyStore.setSurvey(surveyState);
         }
       });
@@ -189,30 +189,49 @@ export class SfSurveyFormComponent {
     );
   }
 
-  addQuestion(): void {
+  public addQuestion(): void {
     const q = this.controls.question.value?.trim();
     if (!q) return;
     this.__createQuestion(q);
     this.controls.question.reset();
   }
 
-  removeQuestion(i: number): void {
+  public removeQuestion(i: number): void {
     if (i === undefined) {
       throw new Error('Question id is required');
     }
 
     this.questionsArray.removeAt(i);
+    this.formGroup.patchValue({
+      questionsArray: this.questionsArray.getRawValue(),
+    });
   }
 
-  onDrop(event: CdkDragDrop<FormControl<string>[]>): void {
-    moveItemInArray(
-      this.questionsArray.controls,
-      event.previousIndex,
-      event.currentIndex,
-    );
+  public onDrop(event: CdkDragDrop<FormControl<SurveyQuestionDTO>[]>): void {
+    const prevItem = this.questionsArray.at(event.previousIndex).value;
+    const currItem = this.questionsArray.at(event.currentIndex).value;
+
+    if (prevItem.Id || currItem.Id) return;
+
+    const prevIndex = event.previousIndex;
+    const currentIndex = event.currentIndex;
+
+    if (prevIndex === currentIndex) return;
+    const currentValues = this.questionsArray.getRawValue();
+    moveItemInArray(currentValues, prevIndex, currentIndex);
+
+    this.questionsArray.clear();
+    for (const val of currentValues) {
+      this.questionsArray.push(
+        new FormControl(val, {
+          validators: Validators.required,
+          nonNullable: true,
+        }),
+      );
+    }
   }
 
-  saveEdit(index: number): void {
+  public saveEdit(index: number): void {
     const control = this.questionsArray.at(index);
     const newValue = control.value.Question;
 
@@ -225,48 +244,51 @@ export class SfSurveyFormComponent {
 
     this.editingIndex.set(undefined);
   }
-  startEditing(index: number): void {
+
+  public startEditing(index: number): void {
     this.editingIndex.set(index);
   }
 
-  cancelEdit(): void {
+  public cancelEdit(): void {
     this.editingIndex.set(undefined);
   }
 
-  uploadedLogo(imgUrl: string) {
+  public uploadedLogo(imgUrl: string) {
     this.controls.extraLogo.patchValue(imgUrl);
   }
 
-  setQuestionArray($index: number, $event: any) {
+  public setQuestionArray($index: number, $event: any) {
     return this.questionsArray
       .at($index)
       .setValue({ ...this.questionsArray.at($index).value, Question: $event });
   }
-}
 
-export function surveyChanged(prev: SurveyDTO | undefined, current: SurveyDTO) {
-  if (!prev) return true;
+  private __surveyChanged(prev: SurveyDTO | undefined, current: SurveyDTO) {
+    if (!prev) return true;
 
-  const arraysEqual = (a: number[], b: number[]): boolean => {
-    if (a.length !== b.length) return false;
-    return a.every((val, i) => val === b[i]);
-  };
+    const arraysEqual = (a: number[], b: number[]): boolean => {
+      if (a.length !== b.length) return false;
+      return a.every((val, i) => val === b[i]);
+    };
 
-  const questionsEqual = (
-    a: SurveyQuestionDTO[],
-    b: SurveyQuestionDTO[],
-  ): boolean => {
-    if (a.length !== b.length) return false;
-    return a.every((q, i) => q.Question === b[i].Question && q.Id === b[i].Id);
-  };
+    const questionsEqual = (
+      a: SurveyQuestionDTO[],
+      b: SurveyQuestionDTO[],
+    ): boolean => {
+      if (a.length !== b.length) return false;
+      return a.every(
+        (q, i) => q.Question === b[i].Question && q.Id === b[i].Id,
+      );
+    };
 
-  return (
-    prev.Id !== current.Id ||
-    prev.Title !== current.Title ||
-    prev.ExtraLogoUrl !== current.ExtraLogoUrl ||
-    !arraysEqual(prev.TripIds, current.TripIds) ||
-    !questionsEqual(prev.SurveyQuestionDTOS, current.SurveyQuestionDTOS) ||
-    !arraysEqual(prev.SurveyQuestionIds, current.SurveyQuestionIds) ||
-    current.SurveyQuestionDTOS.some((q) => !q.Id)
-  );
+    return (
+      prev.Id !== current.Id ||
+      prev.Title !== current.Title ||
+      prev.ExtraLogoUrl !== current.ExtraLogoUrl ||
+      !arraysEqual(prev.TripIds, current.TripIds) ||
+      !questionsEqual(prev.SurveyQuestionDTOS, current.SurveyQuestionDTOS) ||
+      !arraysEqual(prev.SurveyQuestionIds, current.SurveyQuestionIds) ||
+      current.SurveyQuestionDTOS.some((q) => !q.Id)
+    );
+  }
 }
