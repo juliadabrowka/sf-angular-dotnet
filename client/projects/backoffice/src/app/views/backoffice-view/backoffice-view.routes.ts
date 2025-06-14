@@ -106,8 +106,4 @@ export const backofficeViewRoutes: Route[] = [
       ...filteredTableRoutes,
     ],
   },
-  {
-    path: '**',
-    redirectTo: 'admin-backoffice',
-  },
 ];
