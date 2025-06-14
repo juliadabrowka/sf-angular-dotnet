@@ -4,7 +4,7 @@ import { inject } from '@angular/core';
 import { ArticleStore, SurveyStore } from '@sf/sf-base';
 import { TripApplicationStore } from '../../../base/src/state/trip-application-store';
 
-export const backofficeRoutes: Routes = [
+export const sfBackofficeRoutes: Routes = [
   {
     path: '',
     canActivate: [authGuard],

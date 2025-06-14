@@ -9,7 +9,6 @@ using System.Text.Json.Serialization;
 using DotNetEnv;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
-using sf.Controllers;
 using sf.Program.Data;
 
 namespace sf.Program;
@@ -95,9 +94,12 @@ class Program
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             })
             .AddJwtBearer(options =>
             {
+                options.SaveToken = true;
+                
                 var keyBytes = Convert.FromBase64String(Env.GetString("JWT_KEY"));
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
@@ -175,11 +177,38 @@ class Program
             });
         });
 
-        builder.Services.AddAuthorization();
         builder.Services.AddControllers();
         
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc("v1", new() { Title = "SF API", Version = "v1" });
+
+            c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+            {
+                Name = "Authorization",
+                Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+                Scheme = "Bearer",
+                BearerFormat = "JWT",
+                In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+                Description = "Enter your JWT token like this: Bearer {your token}"
+            });
+
+            c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+            {
+                {
+                    new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                    {
+                        Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                        {
+                            Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    Array.Empty<string>()
+                }
+            });
+        });
     }
 
     private static void ConfigureMiddleware(WebApplication app)
