@@ -1,29 +1,41 @@
-<nz-card [nzTitle]="articlesTemplate" [nzBordered]="false">
-  <sf-article-table
-    [sfArticles]="articles()"
-    [sfLoading]="loading()"
-    (sfOnArticleClick)="onArticleClicked($event)"
-  ></sf-article-table>
-</nz-card>
+<nz-layout class="container">
+  <nz-header class="header">
+    <div class="logotype">
+      <img src="../assets/logotyp-superfemka.png" alt="logo" [routerLink]="'./'"/>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="horizontal">
+      <li nz-submenu [nzTitle]="addPostTemplate" (click)="createNewArticle()"></li>
+      <li nz-submenu [nzTitle]="addTripTemplate" (click)="createNewTrip()"></li>
+      <li nz-submenu [nzTitle]="addSurveyTemplate" (click)="createNewSurvey()"></li>
+    </ul>
+  </nz-header>
+  <nz-layout class="main-layout">
+    <sf-sider
+      (sfOnElementClicked)="onElementIdClicked($event)"
+    ></sf-sider>
+    <nz-content>
+      <router-outlet></router-outlet>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
 
-<nz-card [nzTitle]="tripsTemplate" [nzBordered]="false">
-  <sf-trip-table
-    [sfArticles]="articles() | sfMapArticlesToTrips"
-    [sfLoading]="loading()"
-    (sfOnTripClick)="onArticleClicked($event)"
-  ></sf-trip-table>
-</nz-card>
-
-<ng-template #articlesTemplate>
+<ng-template #addPostTemplate>
   <sf-icon-and-text
-    [sfIcon]="icons.posts"
-    [sfText]="'Posty'"
+    [sfIcon]="icons.add"
+    [sfText]="'Utwórz wpis'"
   ></sf-icon-and-text>
 </ng-template>
 
-<ng-template #tripsTemplate>
+<ng-template #addTripTemplate>
   <sf-icon-and-text
-    [sfIcon]="icons.trips"
-    [sfText]="'Wyprawy'"
+    [sfIcon]="icons.add"
+    [sfText]="'Utwórz wyprawę'"
+  ></sf-icon-and-text>
+</ng-template>
+
+<ng-template #addSurveyTemplate>
+  <sf-icon-and-text
+    [sfIcon]="icons.add"
+    [sfText]="'Utwórz ankietę'"
   ></sf-icon-and-text>
 </ng-template>

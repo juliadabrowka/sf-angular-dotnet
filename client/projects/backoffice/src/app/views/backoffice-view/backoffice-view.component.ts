@@ -1,45 +1,69 @@
+import { Component, inject } from '@angular/core';
 import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+  ActivatedRoute,
+  Router,
+  RouterLink,
+  RouterOutlet,
+} from '@angular/router';
 import {
-  ArticleDTO,
   ArticleStore,
-  SfArticleTableComponent,
   SfIconAndTextComponent,
   SfIcons,
-  SfTripTableComponent,
+  SfSiderComponent,
+  SurveyStore,
 } from '@sf/sf-base';
-import { NzCardComponent } from 'ng-zorro-antd/card';
-import { SfMapArticlesToTrips } from './map-articles-to-trips';
+import {
+  NzContentComponent,
+  NzHeaderComponent,
+  NzLayoutComponent,
+} from 'ng-zorro-antd/layout';
+import { NzMenuDirective, NzSubMenuComponent } from 'ng-zorro-antd/menu';
 
 @Component({
-  selector: 'sf-backoffice-view',
+  selector: 'sf-backoffice-backoffice-view',
   imports: [
+    NzContentComponent,
+    NzHeaderComponent,
+    NzLayoutComponent,
+    NzMenuDirective,
+    NzSubMenuComponent,
     SfIconAndTextComponent,
-    SfArticleTableComponent,
-    SfTripTableComponent,
-    NzCardComponent,
-    SfMapArticlesToTrips,
+    SfSiderComponent,
+    RouterLink,
+    RouterOutlet,
   ],
   templateUrl: './backoffice-view.component.html',
   styleUrl: './backoffice-view.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SfBackofficeComponent {
+export class SfBackofficeViewComponent {
   private readonly __router = inject(Router);
   private readonly __activatedRoute = inject(ActivatedRoute);
   private readonly __articleStore = inject(ArticleStore);
+  private readonly __surveyStore = inject(SurveyStore);
 
   public readonly icons = SfIcons;
-  public readonly articles = computed(() => this.__articleStore.articles());
-  public readonly loading = computed(() => this.__articleStore.loading());
 
-  async onArticleClicked(article: ArticleDTO) {
-    await this.__router.navigate([`articles/${article.Id}`], {
+  public onElementIdClicked(elementId: number) {
+    console.log(elementId);
+  }
+
+  async createNewArticle() {
+    this.__articleStore.setArticle(undefined);
+    await this.__router.navigate(['create-article'], {
+      relativeTo: this.__activatedRoute,
+    });
+  }
+
+  async createNewTrip() {
+    this.__articleStore.setArticle(undefined);
+    await this.__router.navigate(['create-trip'], {
+      relativeTo: this.__activatedRoute,
+    });
+  }
+
+  async createNewSurvey() {
+    this.__surveyStore.setSurvey(undefined);
+    await this.__router.navigate(['create-survey'], {
       relativeTo: this.__activatedRoute,
     });
   }

@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "sf:start": "ng serve --project=sf --proxy-config=proxy.conf.json",
+    "backoffice:start": "ng serve --project=backoffice --port=4201 --proxy-config=proxy.conf.json",
     "generate:service": "powershell ../server/update-service.ps1",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",

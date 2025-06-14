@@ -2,9 +2,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { ArticleDTO } from '@sf/sf-base';
 
 @Pipe({
-  name: 'sfMapArticlesToTrips',
+  name: 'sfBackofficeMapArticlesToTrips',
 })
-export class SfMapArticlesToTrips implements PipeTransform {
+export class SfBackofficeMapArticlesToTripsPipe implements PipeTransform {
   transform(articles: ArticleDTO[]) {
     return articles.filter((a) => !!a.TripDTO);
   }

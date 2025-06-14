@@ -86,8 +86,6 @@
             },
             "styles": [
               "node_modules/ng-zorro-antd/ng-zorro-antd.css",
-              "node_modules/quill/dist/quill.core.css",
-              "node_modules/quill/dist/quill.snow.css",
               "projects/sf/src/styles.css"
             ],
             "scripts": [],
@@ -192,6 +190,8 @@
             },
             "styles": [
               "node_modules/ng-zorro-antd/ng-zorro-antd.css",
+              "node_modules/quill/dist/quill.core.css",
+              "node_modules/quill/dist/quill.snow.css",
               "projects/backoffice/src/styles.css"
             ],
             "scripts": []

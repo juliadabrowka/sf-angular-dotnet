@@ -16,10 +16,10 @@ import {
 } from '@sf/sf-base';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { SfSkeletonComponent } from '../../../../../base/src/lib/skeleton/skeleton.component';
+import { SfSkeletonComponent } from '../../../../base/src/lib/skeleton/skeleton.component';
 
 @Component({
-  selector: 'sf-backoffice-trip-view',
+  selector: 'sf-backoffice-trip',
   imports: [
     SfSkeletonComponent,
     NzCardComponent,
@@ -27,11 +27,11 @@ import { SfSkeletonComponent } from '../../../../../base/src/lib/skeleton/skelet
     SfButtonComponent,
     SfIconAndTextComponent,
   ],
-  templateUrl: './trip-view.component.html',
-  styleUrl: './trip-view.component.css',
+  templateUrl: './trip.component.html',
+  styleUrl: './trip.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SfBackofficeTripViewComponent {
+export class SfBackofficeTripComponent {
   private readonly __articleStore = inject(ArticleStore);
   private readonly __message = inject(NzMessageService);
   private readonly __router = inject(Router);

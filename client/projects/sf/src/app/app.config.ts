@@ -10,20 +10,12 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
-import { provideQuillConfig } from 'ngx-quill';
-import { ArticleStore, SurveyStore } from '@sf/sf-base';
-import { TripApplicationStore } from '../../../base/src/state/trip-application-store';
+import { ArticleStore } from '@sf/sf-base';
 
 const initializeAppFn = async () => {
   const articleStore = inject(ArticleStore);
-  const surveyStore = inject(SurveyStore);
-  const tripStore = inject(TripApplicationStore);
 
-  await Promise.all([
-    articleStore.loadArticleList(),
-    surveyStore.loadSurveyList(),
-    tripStore.loadTripApplicationList(),
-  ]);
+  await articleStore.loadArticleList();
 };
 
 export const appConfig: ApplicationConfig = {
@@ -37,7 +29,6 @@ export const appConfig: ApplicationConfig = {
       sfAppRoutes,
       withInMemoryScrolling({ scrollPositionRestoration: 'top' }),
     ),
-    provideQuillConfig({ theme: 'snow' }),
     provideAppInitializer(() => {
       return initializeAppFn();
     }),

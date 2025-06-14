@@ -11,12 +11,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'sf-backoffice-filtered-table-view',
+  selector: 'sf-backoffice-filtered-table',
   imports: [NzCardComponent, SfArticleTableComponent, SfIconAndTextComponent],
-  templateUrl: './filtered-table-view.component.html',
-  styleUrl: './filtered-table-view.component.css',
+  templateUrl: './filtered-table.component.html',
+  styleUrl: './filtered-table.component.css',
 })
-export class SfFilteredTableViewComponent {
+export class SfFilteredTableComponent {
   private readonly __store = inject(ArticleStore);
   private readonly __router = inject(Router);
   private readonly __activatedRoute = inject(ActivatedRoute);

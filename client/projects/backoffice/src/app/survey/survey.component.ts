@@ -18,18 +18,18 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NzCardComponent } from 'ng-zorro-antd/card';
 
 @Component({
-  selector: 'sf-backoffice-survey-view',
+  selector: 'sf-backoffice-survey',
   imports: [
     SfButtonComponent,
     SfSurveyFormComponent,
     NzCardComponent,
     SfIconAndTextComponent,
   ],
-  templateUrl: './survey-view.component.html',
-  styleUrl: './survey-view.component.css',
+  templateUrl: './survey.component.html',
+  styleUrl: './survey.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SfBackofficeSurveyViewComponent {
+export class SfBackofficeSurveyComponent {
   private readonly __articleStore = inject(ArticleStore);
   private readonly __surveyStore = inject(SurveyStore);
   private readonly __router = inject(Router);

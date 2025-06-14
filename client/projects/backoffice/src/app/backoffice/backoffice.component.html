@@ -1,0 +1,29 @@
+<nz-card [nzTitle]="articlesTemplate" [nzBordered]="false">
+    <sf-article-table
+            [sfArticles]="articles()"
+            [sfLoading]="loading()"
+            (sfOnArticleClick)="onArticleClicked($event)"
+    ></sf-article-table>
+</nz-card>
+
+<nz-card [nzTitle]="tripsTemplate" [nzBordered]="false">
+    <sf-trip-table
+            [sfArticles]="articles() | sfBackofficeMapArticlesToTrips"
+            [sfLoading]="loading()"
+            (sfOnTripClick)="onArticleClicked($event)"
+    ></sf-trip-table>
+</nz-card>
+
+<ng-template #articlesTemplate>
+    <sf-icon-and-text
+            [sfIcon]="icons.posts"
+            [sfText]="'Posty'"
+    ></sf-icon-and-text>
+</ng-template>
+
+<ng-template #tripsTemplate>
+    <sf-icon-and-text
+            [sfIcon]="icons.trips"
+            [sfText]="'Wyprawy'"
+    ></sf-icon-and-text>
+</ng-template>

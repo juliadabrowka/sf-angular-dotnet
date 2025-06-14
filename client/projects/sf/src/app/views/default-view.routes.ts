@@ -16,16 +16,16 @@ export const defaultViewRoutes: Routes = [
       {
         path: 'kalendarium-wypraw',
         loadChildren: () =>
-          import(
-            '../../views/default-view/trip-calendar-view/trip-calendar-view.routes'
-          ).then((m) => m.tripCalendarViewRoutes),
+          import('./trip-calendar-view/trip-calendar-view.routes').then(
+            (m) => m.tripCalendarViewRoutes,
+          ),
       },
       {
         path: '',
         loadChildren: () =>
-          import(
-            '../../views/default-view/main-page-view/main-page-view.routes'
-          ).then((m) => m.mainPageViewRoutes),
+          import('./main-page-view/main-page-view.routes').then(
+            (m) => m.mainPageViewRoutes,
+          ),
       },
     ],
   },

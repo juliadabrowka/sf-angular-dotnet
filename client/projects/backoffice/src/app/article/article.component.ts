@@ -18,10 +18,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzCardComponent } from 'ng-zorro-antd/card';
 import { NzTooltipDirective } from 'ng-zorro-antd/tooltip';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { SfSkeletonComponent } from '../../../../../base/src/lib/skeleton/skeleton.component';
+import { SfSkeletonComponent } from '../../../../base/src/lib/skeleton/skeleton.component';
 
 @Component({
-  selector: 'sf-backoffice-article-view',
+  selector: 'sf-backoffice-article',
   imports: [
     SfButtonComponent,
     SfArticleFormComponent,
@@ -31,11 +31,11 @@ import { SfSkeletonComponent } from '../../../../../base/src/lib/skeleton/skelet
     NzButtonComponent,
     SfSkeletonComponent,
   ],
-  templateUrl: './article-view.component.html',
-  styleUrl: './article-view.component.css',
+  templateUrl: './article.component.html',
+  styleUrl: './article.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SfBackofficeArticleViewComponent {
+export class SfBackofficeArticleComponent {
   private readonly __articleStore = inject(ArticleStore);
   private readonly __route = inject(ActivatedRoute);
   private readonly __router = inject(Router);

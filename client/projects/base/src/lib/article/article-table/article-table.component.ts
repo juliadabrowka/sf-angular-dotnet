@@ -6,10 +6,11 @@ import {
 } from '@angular/core';
 import { ArticleDTO } from '@sf/sf-base';
 import { NzTableModule, NzThAddOnComponent } from 'ng-zorro-antd/table';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
 
 @Component({
   selector: 'sf-article-table',
-  imports: [NzThAddOnComponent, NzTableModule],
+  imports: [NzThAddOnComponent, NzTableModule, NzEmptyModule],
   templateUrl: './article-table.component.html',
   styleUrl: './article-table.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
