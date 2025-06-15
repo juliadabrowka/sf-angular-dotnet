@@ -18,6 +18,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideQuillConfig } from 'ngx-quill';
 import { Observable } from 'rxjs';
 import { AuthService } from '@sf/sf-base';
+import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
 
 export const authInterceptor: HttpInterceptorFn = (
   req: HttpRequest<any>,
@@ -40,6 +41,7 @@ export const authInterceptor: HttpInterceptorFn = (
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideNzI18n(en_US),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(
       sfBackofficeRoutes,

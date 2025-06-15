@@ -8,7 +8,7 @@
   @for (tripType of tripTypes; track tripType) {
     <sf-trip-grid
       [sfTitle]="tripType.label"
-      [sfTrips]="sfTrips() | sfFilterTripsByType : tripType.value | async"
+      [sfTrips]="sfArticles() | sfFilterTripsByType : tripType.value"
       [sfIcon]="tripType.icon"
     ></sf-trip-grid>
     @if (!$last && !$first) {

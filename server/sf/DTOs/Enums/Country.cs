@@ -7,4 +7,5 @@ public enum Country
     Japan,
     Portugal,
     Cuba,
+    Taiwan
 }

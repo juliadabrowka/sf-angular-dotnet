@@ -1,23 +1,21 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Country, TripDTO, TripType } from '@sf/sf-base';
+import { ArticleDTO, Country, TripType } from '@sf/sf-base';
 import { TripFlag } from './trip-calendar.component';
 
 @Pipe({
   name: 'sfFilterTripsByType',
 })
 export class SfFilterTripsByTypePipe implements PipeTransform {
-  async transform(trips: TripDTO[], type: TripType): Promise<TripFlag[]> {
-    return await Promise.all(
-      trips
-        .filter((trip) => trip.Type === type && trip.ArticleId)
-        .map(async (t) => {
-          const article = t.ArticleDTO;
-          return {
-            trip: t,
-            flagSrc: this.getFlagByTripCountry(article?.Country),
-          };
-        }),
-    );
+  transform(articles: ArticleDTO[], type: TripType): TripFlag[] {
+    return articles
+      .filter(
+        (article) =>
+          article.TripDTO?.Type === type && article.TripDTO.ArticleId,
+      )
+      .map((article) => ({
+        trip: article.TripDTO!,
+        flagSrc: this.getFlagByTripCountry(article?.Country),
+      }));
   }
 
   private getFlagByTripCountry(country: Country | undefined) {
@@ -32,6 +30,8 @@ export class SfFilterTripsByTypePipe implements PipeTransform {
         return '/assets/poland-flag.jpg';
       case Country.Norway:
         return '/assets/norge-flag.png';
+      case Country.Taiwan:
+        return '/assets/taiwan-flag.jpg';
       default:
         return '/assets/poland-flag.jpg';
     }

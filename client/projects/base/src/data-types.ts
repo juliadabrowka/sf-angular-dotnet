@@ -30,6 +30,7 @@ export enum Country {
   Japan = 'Japan',
   Portugal = 'Portugal',
   Cuba = 'Cuba',
+  Taiwan = 'Taiwan',
 }
 
 export const CountryLabels: Record<Country, string> = {
@@ -38,6 +39,7 @@ export const CountryLabels: Record<Country, string> = {
   [Country.Japan]: 'Japonia',
   [Country.Portugal]: 'Portugalia',
   [Country.Cuba]: 'Kuba',
+  [Country.Taiwan]: 'Taiwan',
 };
 
 export enum Rating {

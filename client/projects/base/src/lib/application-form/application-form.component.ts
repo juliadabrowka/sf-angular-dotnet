@@ -10,6 +10,7 @@ import {
   AbstractControl,
   FormControl,
   FormGroup,
+  FormsModule,
   ReactiveFormsModule,
   ValidationErrors,
   ValidatorFn,
@@ -17,6 +18,7 @@ import {
 } from '@angular/forms';
 import { DefaultStatusValue, TripApplicationDTO } from '@sf/sf-base';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
 
 @Component({
   selector: 'sf-application-form',
@@ -27,6 +29,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     NzInputDirective,
     ReactiveFormsModule,
     NzFormDirective,
+    NzCheckboxComponent,
+    FormsModule,
   ],
   templateUrl: './application-form.component.html',
   styleUrl: './application-form.component.css',
@@ -47,6 +51,7 @@ export class ApplicationFormComponent {
       validators: [Validators.required, this.phoneNumberValidator()],
     }),
     extra: new FormControl('', { nonNullable: true }),
+    marketingConsent: new FormControl(false, { nonNullable: true }),
   };
   public readonly formGroup = new FormGroup(this.controls);
   public readonly sfClientData = output<TripApplicationDTO>();

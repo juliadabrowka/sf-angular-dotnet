@@ -35,18 +35,20 @@
             </ng-container>
         </div>
       </div>
-      <div class="application-form" [class.open]="showSlider()">
-        <sf-application-form
-          #surveyForm
-          (sfClientData)="createTripApplication($event)"
-          (sfButtonDisabled)="disabled.set($event)"
-        ></sf-application-form>
-        <sf-button
-          [sfButtonText]="'REZERWUJ'"
-          [sfDisabled]="disabled()"
-          (click)="surveyForm.submitForm()"
-        ></sf-button>
-      </div>
+      @if (showSlider()) {
+        <div class="application-form" [class.open]="showSlider()">
+          <sf-application-form
+            #surveyForm
+            (sfClientData)="createTripApplication($event)"
+            (sfButtonDisabled)="disabled.set($event)"
+          ></sf-application-form>
+          <sf-button
+            [sfButtonText]="'REZERWUJ'"
+            [sfDisabled]="disabled()"
+            (click)="surveyForm.submitForm()"
+          ></sf-button>
+        </div>
+      }
     </div>
   </div>
   }

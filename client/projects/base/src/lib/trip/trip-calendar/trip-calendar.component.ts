@@ -9,7 +9,6 @@ import { PageTitleFramedComponent } from '../../page-title-framed/page-title-fra
 import { ArticleStore, TripDTO, TripType, TripTypeLabels } from '@sf/sf-base';
 import { SfFilterTripsByTypePipe } from './filter-trips-by-type.pipe';
 import { NzDividerComponent } from 'ng-zorro-antd/divider';
-import { AsyncPipe } from '@angular/common';
 
 export interface TripFlag {
   trip: TripDTO;
@@ -22,16 +21,15 @@ export interface TripFlag {
     PageTitleFramedComponent,
     SfFilterTripsByTypePipe,
     NzDividerComponent,
-    AsyncPipe,
   ],
   templateUrl: './trip-calendar.component.html',
   styleUrl: './trip-calendar.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SfTripCalendarComponent {
-  private readonly __store = inject(ArticleStore);
+  private readonly __articleStore = inject(ArticleStore);
 
-  public readonly sfTrips = computed(() => this.__store.trips());
+  public readonly sfArticles = computed(() => this.__articleStore.articles());
 
   public readonly titleFramed = 'KALENDARIUM WYPRAW 2024/2025';
   public readonly tripTypes = Object.keys(TripType).map((k) => ({
