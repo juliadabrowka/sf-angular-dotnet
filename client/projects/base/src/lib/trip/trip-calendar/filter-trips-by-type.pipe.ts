@@ -6,11 +6,11 @@ import { TripFlag } from './trip-calendar.component';
   name: 'sfFilterTripsByType',
 })
 export class SfFilterTripsByTypePipe implements PipeTransform {
-  transform(articles: ArticleDTO[], type: TripType): TripFlag[] {
+  transform(articles: ArticleDTO[], type?: TripType): TripFlag[] {
     return articles
       .filter(
         (article) =>
-          article.TripDTO?.Type === type && article.TripDTO.ArticleId,
+          article.TripDTO?.Type === type && article.TripDTO?.ArticleId,
       )
       .map((article) => ({
         trip: article.TripDTO!,

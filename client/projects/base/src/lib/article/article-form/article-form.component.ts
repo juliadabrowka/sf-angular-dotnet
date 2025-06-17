@@ -111,7 +111,7 @@ export class SfArticleFormComponent {
     }),
   };
   public readonly categories = Object.values(ArticleCategory).map((o) => ({
-    label: ArticleCategoryLabels[o],
+    label: ArticleCategoryLabels[o as keyof typeof ArticleCategory],
     value: o,
   }));
   public readonly countries = Object.values(Country).map((o) => ({

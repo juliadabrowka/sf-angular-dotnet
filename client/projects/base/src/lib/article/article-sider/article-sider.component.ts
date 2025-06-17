@@ -8,10 +8,16 @@ import { ArticleStore } from '@sf/sf-base';
 import { SfArticleSiderDataPipe } from './sf-map-articles-to-sider-data.pipe';
 import { SliceTextComponent } from '../../slice-text/slice-text.component';
 import { RouterLink } from '@angular/router';
+import { SfMapCategoryPipe } from './sf-map-category.pipe';
 
 @Component({
   selector: 'sf-article-sider',
-  imports: [SfArticleSiderDataPipe, SliceTextComponent, RouterLink],
+  imports: [
+    SfArticleSiderDataPipe,
+    SliceTextComponent,
+    RouterLink,
+    SfMapCategoryPipe,
+  ],
   templateUrl: './article-sider.component.html',
   styleUrl: './article-sider.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,6 +1,6 @@
 @for ((sd of articles() | sfArticleSiderData); track $index) {
   <div class="article-sider">
-    <div class="article-category">{{ sd.category }}</div>
+    <div class="article-category">{{ sd.category | sfMapCategory }}</div>
     @for (article of sd.articles; track $index) {
       <div class="article-container" [routerLink]="['/', article.Url]">
         <img [src]="article.BackgroundImageUrl" alt="'article image'">

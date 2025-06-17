@@ -15,7 +15,7 @@ export * from './lib/article/article-table/article-table.component';
 export * from './lib/article/article-details/article-details.component';
 
 export * from './lib/button/button.component';
-
+export * from './lib/credo/credo.routes';
 export * from './lib/footer/footer.component';
 
 export * from './lib/icon-and-text/icon-and-text.component';

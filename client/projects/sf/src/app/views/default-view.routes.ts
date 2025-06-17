@@ -7,6 +7,13 @@ export const defaultViewRoutes: Routes = [
     component: SfBackofficeDefaultViewComponent,
     children: [
       {
+        path: 'styl-oraz-idea',
+        loadChildren: () =>
+          import('./credo-view/creo-view.routes').then(
+            (m) => m.credoViewRoutes,
+          ),
+      },
+      {
         path: 'trip-application/:hash',
         loadChildren: () =>
           import('./trip-application-view/trip-application-view.routes').then(

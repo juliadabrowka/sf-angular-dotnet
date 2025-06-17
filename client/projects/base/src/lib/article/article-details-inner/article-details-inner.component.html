@@ -7,6 +7,55 @@
         ></sf-trip-details-short>
       }
       <quill-view [content]="article.Content"></quill-view>
+
+      <div class="form">
+        <div class="form-trip">formularz zgłoszeniowy</div>
+        @for (tripTerm of article.TripDTO?.TripTermDTOS; track tripTerm.Id) {
+          <div class="trip-data">
+            <div class="trip-info">
+              <div class="trip-inline-data">
+                <ng-container>
+                  <div class="trip-date">
+                    {{ tripTerm.DateFrom | date:'yyyy | dd.MM' }} - {{ tripTerm.DateTo | date:'dd.MM' }}
+                  </div>
+                  <div class="right">
+                    <div class="middle">
+                      <div class="trip-price">
+                        <span class="price">cena</span>
+                        {{ tripTerm.Price | sfFormatPrice }}
+                      </div>
+                      <div class="trip-availability">
+                        <span class="availability">wolnych miejsc</span>
+                        {{ tripTerm.ParticipantsTotal - tripTerm.ParticipantsCurrent }}
+                      </div>
+                    </div>
+                    <sf-button
+                      [sfButtonText]="'ZAPISZ SIĘ'"
+                      (sfOnButtonClicked)="__onShowSlider()"
+                    ></sf-button>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+            @if (showSlider()) {
+              <div class="application-form" [class.open]="showSlider()">
+                <sf-application-form
+                  #surveyForm
+                  (sfClientData)="createTripApplication($event)"
+                  (sfButtonDisabled)="disabled.set($event)"
+                ></sf-application-form>
+                <sf-button
+                  [sfButtonText]="'REZERWUJ'"
+                  [sfDisabled]="disabled()"
+                  (click)="surveyForm.submitForm()"
+                ></sf-button>
+              </div>
+            }
+          </div>
+        }
+      </div>
+      <nz-divider></nz-divider>
+      <sf-reviews></sf-reviews>
     </div>
   }
   <nz-divider [nzType]="'vertical'"></nz-divider>
@@ -14,4 +63,3 @@
     <sf-article-sider></sf-article-sider>
   </div>
 </div>
-<sf-reviews></sf-reviews>

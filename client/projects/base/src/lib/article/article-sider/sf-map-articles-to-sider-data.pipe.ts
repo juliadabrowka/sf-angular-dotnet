@@ -1,12 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ArticleDTO } from '@sf/sf-base';
+import { ArticleCategory, ArticleDTO } from '@sf/sf-base';
 
 @Pipe({
   name: 'sfArticleSiderData',
 })
 export class SfArticleSiderDataPipe implements PipeTransform {
   transform(articles: ArticleDTO[]) {
-    const siderData: { category: string; articles: ArticleDTO[] }[] = [];
+    const siderData: { category: ArticleCategory; articles: ArticleDTO[] }[] =
+      [];
 
     articles.forEach((article) => {
       const categoryGroup = siderData.find(

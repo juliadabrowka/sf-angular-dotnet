@@ -1,18 +1,20 @@
 @if (sfTrips(); as trips) {
-  @for (trip of trips; track trip.trip.Id) {
-  <div class="container">
-    <div class="title">
-      <sf-icon-and-text
-        [sfText]="sfTitle()"
-        [sfIconSrc]="sfIcon()"
-        [sfReverse]="true"
-      ></sf-icon-and-text>
+  @if (trips.length) {
+    <div class="container">
+      <div class="title">
+        <sf-icon-and-text
+          [sfText]="sfTitle()"
+          [sfIconSrc]="sfIcon()"
+          [sfReverse]="true"
+        ></sf-icon-and-text>
+      </div>
+      @for (trip of trips; track $index) {
+        <div class="trips-inline">
+          <sf-trip-inline
+            [sfTripInfo]="trip"
+          ></sf-trip-inline>
+        </div>
+      }
     </div>
-    <div class="trips-inline">
-        <sf-trip-inline
-          [sfTripInfo]="trip"
-        ></sf-trip-inline>
-    </div>
-  </div>
-}
+  }
 }
