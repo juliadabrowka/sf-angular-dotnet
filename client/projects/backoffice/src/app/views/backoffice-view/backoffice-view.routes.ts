@@ -71,7 +71,7 @@ const filteredTableRoutes: Routes = [
 
 export const backofficeViewRoutes: Route[] = [
   {
-    path: 'admin-backoffice',
+    path: '',
     component: SfBackofficeViewComponent,
     children: [
       {
