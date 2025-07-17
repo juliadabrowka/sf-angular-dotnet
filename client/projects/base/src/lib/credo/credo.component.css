@@ -35,13 +35,12 @@
   width: 90%;
 }
 
-.ant-divider-vertical {
-  margin-top: -8px;
-  height: 100vh;
-  border-color: var(--primary-color);
-  border-width: 3px;
-}
-
 .line {
   margin-right: var(--margin-m);
+
+  .ant-divider-vertical {
+    margin-top: -8px !important;
+    border-color: var(--primary-color) !important;
+    border-width: 3px !important;
+  }
 }

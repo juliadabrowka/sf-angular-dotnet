@@ -10,8 +10,6 @@ img {
 .custom-article-wrapper {
   display: flex;
   justify-content: center;
-  background-color: var(--remove-grey-hover-color);
-  height: 180px;
 }
 
 .custom-article-content {
@@ -39,10 +37,4 @@ img {
   display: flex;
   flex-direction: column;
   width: 100%;
-}
-
-.ant-divider-vertical {
-  margin-top: 12px;
-  height: 100vh;
-  border-color: var(--divider-grey-color);
 }

@@ -14,12 +14,14 @@
   <div class="custom-article-wrapper">
     @if (articleDisplayCustom(); as articleDisplayCustom) {
       <div>
-        <div class="custom-article-content">
-          <sf-page-title-framed
-            [sfTitle]="articleDisplayCustom.framedTitle"
-            [sfFontSize]="16"
-            [sfColor]="'black'"
-          ></sf-page-title-framed>
+        <div class="custom-article-content-wrapper">
+          <div class="custom-article-content">
+            <sf-page-title-framed
+              [sfTitle]="articleDisplayCustom.framedTitle"
+              [sfFontSize]="16"
+              [sfColor]="'black'"
+            ></sf-page-title-framed>
+          </div>
         </div>
         @if (customLink() === 'ciekawostki') {
           <div class="main-content">
@@ -49,9 +51,6 @@
         }
       </div>
     }
-  </div>
-  <div>
-
   </div>
 }
 @if (loading()) {

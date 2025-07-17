@@ -279,3 +279,9 @@ ol > li {
 strong {
   font-weight: bold !important;
 }
+
+.ant-divider-vertical {
+  margin-top: 12px;
+  height: auto;
+  border-color: var(--divider-grey-color);
+}

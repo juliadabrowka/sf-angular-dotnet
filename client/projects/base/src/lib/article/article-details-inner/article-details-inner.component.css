@@ -11,12 +11,6 @@
   width: 100%
 }
 
-.ant-divider-vertical {
-  margin-top: 12px;
-  height: 100vh;
-  border-color: var(--divider-grey-color);
-}
-
 .form {
   margin: var(--margin-m) 0;
 }

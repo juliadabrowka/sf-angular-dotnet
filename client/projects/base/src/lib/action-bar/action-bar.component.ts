@@ -1,6 +1,5 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   DestroyRef,
   inject,
@@ -37,15 +36,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class SfActionBarComponent implements OnInit, OnDestroy {
   private readonly __router = inject(Router);
   private readonly __destroyRef = inject(DestroyRef);
-  private readonly __cdr = inject(ChangeDetectorRef);
 
   public readonly icons = SfIcons;
   public readonly currentActionBarClass = signal('action-bar-default-page');
   public readonly transformBarHeight = signal(false);
+  private readonly __isHomePage = signal(false);
 
-  ngOnInit() {
-    this.updateActionBarClasses();
-
+  constructor() {
     this.__router.events
       .pipe(takeUntilDestroyed(this.__destroyRef))
       .subscribe((event) => {
@@ -58,25 +55,33 @@ export class SfActionBarComponent implements OnInit, OnDestroy {
       window.addEventListener('scroll', this.onScroll.bind(this));
   }
 
+  ngOnInit() {
+    this.updateActionBarClasses();
+  }
+
   private updateActionBarClasses() {
     const currentUrl = this.__router.url;
 
     if (currentUrl === '/') {
       this.currentActionBarClass.set('action-bar-default-page');
-    } else if (
-      currentUrl.startsWith('/admin') ||
-      currentUrl.includes('/trip-application/')
-    ) {
-      this.currentActionBarClass.set('action-bar-display-hidden');
+      this.__isHomePage.set(true);
     } else {
-      this.currentActionBarClass.set('action-bar-other-page');
+      if (
+        currentUrl.startsWith('/admin') ||
+        currentUrl.includes('/trip-application/')
+      ) {
+        this.currentActionBarClass.set('action-bar-display-hidden');
+      } else {
+        this.currentActionBarClass.set('action-bar-other-page');
+      }
+      this.__isHomePage.set(false);
     }
   }
 
   private onScroll() {
     const scrollPosition = window.scrollY;
     this.transformBarHeight.set(scrollPosition > 150);
-    this.transformBarHeight()
+    this.transformBarHeight() || !this.__isHomePage()
       ? this.currentActionBarClass.set('action-bar-other-page')
       : this.currentActionBarClass.set('action-bar-default-page');
   }
