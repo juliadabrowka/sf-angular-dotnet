@@ -1,26 +1,29 @@
-# 🛠️ Engineering Thesis Application
+# 🛠️ Travel Agency Web Application for Women 
 
-This is a full-stack web application built with **Angular 19**, **.NET Core**, **Entity Framework Core**, and *
-*Microsoft SQL Server**. It consists of two Angular applications and one shared library. The system is divided into:
+This is a full-stack web application built with **Angular 19**, **.NET Core**, **Entity Framework Core**, and **Microsoft SQL Server**. It consists of two Angular applications and one shared library. The system is divided into:
 
-- 🌐 **Main Web Application** – The public-facing website
-- 🔧 **Back Office (Admin Panel)** – An administrative dashboard to manage the content and functionality of the website
+- 🌐 **Main Web Application** – The website
+- 🔧 **Back Office** – An admin dashboard
 - 🧱 **Shared UI Library** – A reusable library of components used by both apps
 
+This project is organized as a monorepo, containing all frontend and backend applications in a single repository.
 ---
 
 ## 🗂️ Project Structure
 
 ```
-├── apps/
-│   ├── web-app/         # Public-facing Angular application (Main Website)
-│   └── back-office/     # Admin Panel (Back Office for managing the website)
-├── libs/
-│   └── shared-ui/       # Shared library with reusable UI components (ng-zorro, Font Awesome, etc.)
-├── backend/
-│   ├── API/             # .NET Core Web API project (Backend logic and data services)
+├── client/
+  ├── projets/
+  │   ├── sf/              # main Website
+  │   └── backoffice/      # admin panel
+  │   └── base/            # shared library with reusable UI components
+├── server/
+│   ├── Controllers/     # API endpoints
 │   ├── Data/            # EF Core DbContext and database migrations
+│   ├── DTOs/            # Data Transfer Objects used to move data between layers
 │   └── Models/          # Entity models and Data Transfer Objects (DTOs)
+│   └── Repositories/    # Data access layer (queries and persistence logic)
+│   └── Services/        # Business logic and domain services
 └── README.md            # This file (Project documentation)
 ```
 ---
@@ -59,7 +62,7 @@ This is a full-stack web application built with **Angular 19**, **.NET Core**, *
 - CRUD operations for website content
 - Content, user, and data management
 
-### Shared UI Library
+### Base - Shared UI Library
 
 - Reusable Angular components
 - Unified UI style across applications
@@ -77,8 +80,3 @@ This is a full-stack web application built with **Angular 19**, **.NET Core**, *
 
 Authentication and role-based access can be handled using ASP.NET Identity or JWT tokens, particularly for admin
 operations.
-
-## 📚 Thesis Context
-
-This application was developed as part of an engineering thesis to demonstrate skills in full-stack development, modular
-architecture, and UI component reuse with modern technologies.
