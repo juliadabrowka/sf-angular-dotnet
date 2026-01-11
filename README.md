@@ -33,11 +33,11 @@ This project is organized as a monorepo, containing all frontend and backend app
 ### Frontend
 
 - **Angular 19**
-- **Angular CLI**
+- **NgRx (Signal-based state management)** for managing global application state
+- **RxJS**
 - **ng-zorro** – Ant Design UI components for Angular
 - **Font Awesome** – Icon set and toolkit
 - **Elfsight Widget** – Integration for displaying Facebook reviews
-- **RxJS**, **CSS**, and **Angular Forms**
 - **Shared UI Library** for consistent reusable components
 
 ### Backend
